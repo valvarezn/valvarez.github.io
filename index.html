@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calisof - Landing Page</title>
+    <title>Calisof - Sistema ITSM de Gestión de Tickets</title>
     <style>
         * {
             margin: 0;
@@ -15,27 +15,43 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #121212 0%, #1a1a1a 50%, #93cc14 100%);
             min-height: 100vh;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
             display: flex;
             align-items: center;
             justify-content: center;
+            overflow: hidden;
         }
 
         .container {
             max-width: 1200px;
+            width: 100%;
             margin: 0 auto;
-            padding: 2rem;
+            padding: 1rem;
             text-align: center;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .hero {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(18, 18, 18, 0.8);
             border-radius: 20px;
-            padding: 3rem;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(10px);
+            padding: 1.5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(15px);
             animation: fadeInUp 1s ease-out;
+            height: 85vh;
+            overflow: hidden;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border: 1px solid rgba(147, 204, 20, 0.1);
         }
 
         @keyframes fadeInUp {
@@ -50,49 +66,55 @@
         }
 
         .logo {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 2rem;
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            border-radius: 50%;
+            width: 140px;
+            height: 140px;
+            margin: 0 auto 1.5rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
-            color: white;
-            font-weight: bold;
+            overflow: hidden;
+            background: transparent;
+            padding: 0;
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
         }
 
         h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(45deg, #667eea, #764ba2);
+            font-size: 2.5rem;
+            margin-bottom: 0.8rem;
+            background: linear-gradient(45deg, #ffffff, #93cc14);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
 
         .subtitle {
-            font-size: 1.3rem;
-            color: #666;
-            margin-bottom: 2rem;
-            max-width: 600px;
+            font-size: 1.1rem;
+            color: #cccccc;
+            margin-bottom: 1.5rem;
+            max-width: 500px;
             margin-left: auto;
             margin-right: auto;
         }
 
         .features {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin: 3rem 0;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
         }
 
         .feature {
-            background: rgba(255, 255, 255, 0.8);
-            padding: 2rem;
+            background: rgba(18, 18, 18, 0.6);
+            padding: 1.2rem;
             border-radius: 15px;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(147, 204, 20, 0.15);
+            backdrop-filter: blur(5px);
         }
 
         .feature:hover {
@@ -103,36 +125,42 @@
         .feature-icon {
             font-size: 2.5rem;
             margin-bottom: 1rem;
-            color: #667eea;
+            color: #93cc14;
         }
 
         .feature h3 {
-            margin-bottom: 1rem;
-            color: #333;
+            margin-bottom: 0.8rem;
+            color: #ffffff;
         }
 
         .feature p {
-            color: #666;
+            color: #cccccc;
+            font-size: 0.9rem;
         }
 
         .cta-button {
             display: inline-block;
-            background: linear-gradient(45deg, #667eea, #764ba2);
+            background: linear-gradient(45deg, #93cc14, #121212);
             color: white;
-            padding: 1rem 2.5rem;
-            font-size: 1.2rem;
+            padding: 0.6rem 1.8rem;
+            font-size: 1rem;
             text-decoration: none;
-            border-radius: 50px;
+            border-radius: 25px;
             font-weight: 600;
             transition: all 0.3s ease;
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 6px 15px rgba(147, 204, 20, 0.3);
             position: relative;
             overflow: hidden;
+            margin-top: 1rem;
+            border: 1px solid rgba(147, 204, 20, 0.2);
+            width: auto;
+            min-width: 200px;
+            max-width: 300px;
         }
 
         .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(147, 204, 20, 0.4);
         }
 
         .cta-button:active {
@@ -162,11 +190,12 @@
 
         @media (max-width: 768px) {
             .container {
-                padding: 1rem;
+                padding: 0.5rem;
             }
             
             .hero {
-                padding: 2rem;
+                padding: 1rem;
+                height: 90vh;
             }
             
             h1 {
@@ -174,11 +203,67 @@
             }
             
             .subtitle {
-                font-size: 1.1rem;
+                font-size: 1rem;
             }
             
             .features {
                 grid-template-columns: 1fr;
+                gap: 1rem;
+                margin: 1rem 0;
+            }
+            
+            .feature {
+                padding: 1rem;
+            }
+            
+            .logo {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .cta-button {
+                padding: 0.5rem 1.5rem;
+                font-size: 0.9rem;
+                min-width: 180px;
+                max-width: 250px;
+            }
+        }
+
+        @media (max-height: 600px) {
+            .hero {
+                padding: 0.8rem;
+                height: 95vh;
+            }
+            
+            .features {
+                margin: 1rem 0;
+            }
+            
+            .feature {
+                padding: 0.8rem;
+            }
+            
+            .logo {
+                width: 100px;
+                height: 100px;
+                margin-bottom: 0.8rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+                margin-bottom: 0.5rem;
+            }
+            
+            .subtitle {
+                font-size: 0.9rem;
+                margin-bottom: 1rem;
+            }
+            
+            .cta-button {
+                padding: 0.5rem 1.2rem;
+                font-size: 0.9rem;
+                min-width: 160px;
+                max-width: 220px;
             }
         }
     </style>
@@ -186,38 +271,37 @@
 <body>
     <div class="container">
         <div class="hero">
-            <div class="logo">C</div>
-            <h1>Bienvenido a Calisof</h1>
+            <div class="logo">
+                <img src="2024-08-09_Logo_Fondo_Oscuro.png" alt="Logo Erco">
+            </div>
+            <h1>Calisof</h1>
             <p class="subtitle">
-                Descubre nuestra plataforma innovadora que transforma la manera en que trabajas. 
-                Soluciones inteligentes para un futuro más eficiente.
+                Solicita soporte técnico, reporta problemas o solicita servicios de cualquier área de tu empresa. 
+                Nuestro sistema te permite crear tickets y dar seguimiento a tus solicitudes de manera fácil y rápida.
             </p>
             
             <div class="features">
                 <div class="feature">
-                    <div class="feature-icon">🚀</div>
-                    <h3>Rápido y Eficiente</h3>
-                    <p>Optimiza tus procesos con nuestra tecnología de vanguardia.</p>
+                    <div class="feature-icon">🎫</div>
+                    <h3>Crear Tickets Fácilmente</h3>
+                    <p>Reporta problemas, solicita servicios o pide soporte técnico con solo unos clics. Nuestro sistema te guía paso a paso.</p>
                 </div>
                 <div class="feature">
-                    <div class="feature-icon">🛡️</div>
-                    <h3>Seguro y Confiable</h3>
-                    <p>Tu información está protegida con los más altos estándares de seguridad.</p>
-                </div>
-                <div class="feature">
-                    <div class="feature-icon">💡</div>
-                    <h3>Fácil de Usar</h3>
-                    <p>Interfaz intuitiva diseñada para una experiencia excepcional.</p>
+                    <div class="feature-icon">🔧</div>
+                    <h3>Soporte para Todas las Áreas</h3>
+                    <p>Ya sea IT, Recursos Humanos, Finanzas, Operaciones o cualquier otro departamento, aquí puedes solicitar ayuda de cualquier área.</p>
                 </div>
             </div>
             
-            <a href="https://launcher.myapps.microsoft.com/api/signin/ff440802-3fac-4a07-8de4-8082d73ae9c4?tenantId=0571d22e-e060-47cf-a07d-5902d5c9bebe" target="_blank" class="cta-button" id="ctaButton">
-                ¡Comenzar Ahora!
-            </a>
+            <div style="text-align: center; margin-top: 1rem;">
+                <a href="https://launcher.myapps.microsoft.com/api/signin/ff440802-3fac-4a07-8de4-8082d73ae9c4?tenantId=0571d22e-e060-47cf-a07d-5902d5c9bebe" target="_blank" class="cta-button" id="ctaButton">
+                    Solicitar Soporte
+                </a>
+            </div>
         </div>
         
         <div class="footer">
-            <p>&copy; 2024 Calisof. Todos los derechos reservados.</p>
+            <p>&copy; 2025 Erco Energy. Plataforma de Soporte y Servicios.</p>
         </div>
     </div>
 
