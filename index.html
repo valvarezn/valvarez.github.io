@@ -310,6 +310,90 @@
             left: 100%;
         }
 
+        /* Mini buttons */
+        .mini-buttons {
+            display: flex;
+            gap: 0.6rem;
+            justify-content: center;
+            align-items: center;
+            margin-top: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        .mini-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: rgba(18, 18, 18, 0.7);
+            border: 1px solid rgba(147, 204, 20, 0.3);
+            color: #e6e6e6;
+            text-decoration: none;
+            padding: 0.35rem 0.6rem;
+            font-size: 0.8rem;
+            border-radius: 999px;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 12px rgba(147, 204, 20, 0.15);
+        }
+
+        .mini-button i {
+            color: #93cc14;
+            font-size: 0.9rem;
+        }
+
+        .mini-button:hover {
+            transform: translateY(-1px);
+            background: rgba(147, 204, 20, 0.15);
+            color: #ffffff;
+        }
+
+        /* Modal de video */
+        .video-modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1100;
+            padding: 1rem;
+        }
+
+        .video-modal-overlay.active {
+            display: flex;
+        }
+
+        .video-modal {
+            background: #121212;
+            border: 1px solid rgba(147, 204, 20, 0.2);
+            border-radius: 16px;
+            width: min(900px, 95vw);
+            aspect-ratio: 16 / 9;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .video-modal iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .video-close {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: rgba(18, 18, 18, 0.85);
+            color: #ffffff;
+            border: 1px solid rgba(147, 204, 20, 0.3);
+            border-radius: 8px;
+            padding: 0.25rem 0.5rem;
+            font-size: 0.8rem;
+            cursor: pointer;
+            z-index: 2;
+        }
+
         .footer {
             margin-top: 1rem;
             color: rgba(255, 255, 255, 0.8);
@@ -478,6 +562,14 @@
             </div>
             
             <div style="text-align: center; margin-top: 1rem; flex-shrink: 0;">
+                <div class="mini-buttons">
+                    <a class="mini-button" href="https://ercocol.sharepoint.com/:b:/s/SistemaHelpdeskTI/Eb2savOl6XlIh4Rh2RE63fsBVVyht6Asq_EUPY7EWZy1Qw?e=HxwkLn" target="_blank" rel="noopener noreferrer">
+                        <i class="fa-solid fa-book"></i> Instructivo de uso
+                    </a>
+                    <a class="mini-button" href="#" id="videoButton">
+                        <i class="fa-brands fa-youtube"></i> Ver video tutorial
+                    </a>
+                </div>
                 <a href="https://launcher.myapps.microsoft.com/api/signin/ff440802-3fac-4a07-8de4-8082d73ae9c4?tenantId=0571d22e-e060-47cf-a07d-5902d5c9bebe" target="_blank" class="cta-button" id="ctaButton">
                     <i class="fa-solid fa-headset"></i> Solicitar Soporte
                 </a>
@@ -486,6 +578,14 @@
         
         <div class="footer">
             <p><i class="fa-solid fa-copyright" style="color: white;"></i> 2025 Erco Energy. <i class="fa-solid fa-shield-halved" style="color: white;"></i> Todos los derechos reservados.</p>
+        </div>
+    </div>
+
+    <!-- Modal de Video YouTube -->
+    <div class="video-modal-overlay" id="videoModalOverlay" aria-hidden="true">
+        <div class="video-modal" role="dialog" aria-modal="true" aria-label="Reproductor de video">
+            <button class="video-close" id="videoClose" aria-label="Cerrar video">Cerrar ✕</button>
+            <iframe id="videoFrame" src="" title="YouTube video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </div>
     </div>
 
@@ -565,15 +665,19 @@
         const sidebar = document.getElementById('sidebar');
         const overlay = document.getElementById('overlay');
 
-        sidebarToggle.addEventListener('click', function() {
-            sidebar.classList.toggle('open');
-            overlay.classList.toggle('active');
-        });
+        if (sidebarToggle && sidebar && overlay) {
+            sidebarToggle.addEventListener('click', function() {
+                sidebar.classList.toggle('open');
+                overlay.classList.toggle('active');
+            });
+        }
 
-        overlay.addEventListener('click', function() {
-            sidebar.classList.remove('open');
-            overlay.classList.remove('active');
-        });
+        if (overlay && sidebar) {
+            overlay.addEventListener('click', function() {
+                sidebar.classList.remove('open');
+                overlay.classList.remove('active');
+            });
+        }
 
         // Close sidebar when clicking on links
         const sidebarLinks = document.querySelectorAll('.sidebar a');
@@ -583,6 +687,52 @@
                 overlay.classList.remove('active');
             });
         });
+
+        // --- Video Modal ---
+        const YOUTUBE_VIDEO_ID = 'VIDEO_ID_AQUI'; // Reemplazar por el ID real del video
+        const videoButton = document.getElementById('videoButton');
+        const videoModalOverlay = document.getElementById('videoModalOverlay');
+        const videoClose = document.getElementById('videoClose');
+        const videoFrame = document.getElementById('videoFrame');
+
+        function openVideoModal() {
+            const src = `https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?autoplay=1&rel=0`;
+            videoFrame.src = src;
+            videoModalOverlay.classList.add('active');
+            videoModalOverlay.setAttribute('aria-hidden', 'false');
+        }
+
+        function closeVideoModal() {
+            videoModalOverlay.classList.remove('active');
+            videoModalOverlay.setAttribute('aria-hidden', 'true');
+            videoFrame.src = '';
+        }
+
+        if (videoButton && videoModalOverlay && videoClose && videoFrame) {
+            videoButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (YOUTUBE_VIDEO_ID && YOUTUBE_VIDEO_ID !== 'VIDEO_ID_AQUI') {
+                    openVideoModal();
+                } else {
+                    // Si no se configuró el ID, abrir el canal genérico de YouTube (como fallback)
+                    window.open('https://www.youtube.com/watch?v=ctwHTANIY3Q&list=PLtzAV0hE6X5unqOAvRpHLU4Cxz_wIrGRH&index=4', '_blank');
+                }
+            });
+
+            videoClose.addEventListener('click', closeVideoModal);
+
+            videoModalOverlay.addEventListener('click', function(e) {
+                if (e.target === videoModalOverlay) {
+                    closeVideoModal();
+                }
+            });
+
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && videoModalOverlay.classList.contains('active')) {
+                    closeVideoModal();
+                }
+            });
+        }
     </script>
 </body>
 </html>
